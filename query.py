@@ -23,7 +23,7 @@ def printing_query(query, connect):
     cursor = connect.cursor()
     cursor.execute(query)
     rows = cursor.fetchall()
-    return rows
+    return print(rows)
 
 def modification_query(query, connect):
     cursor = connect.cursor()
