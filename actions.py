@@ -8,12 +8,12 @@ def display_nicknames(connect):
     query.printing_query("""SELECT nick_name FROM mentors WHERE city='Miskolc';""", connect)
 
 def carols_data(connect):
-    query.printing_query("""SELECT contact(first_name, ' ', last_name),
+    query.printing_query("""SELECT concat(first_name, ' ', last_name),
         phone_number FROM applicants WHERE first_name='CAROL';""", connect)
 
 def hat_owner(connect):
-    query.printing_query("""SELECT contact(first_name ,' ', last_name), 
-        phone_number FROM applicants WHERE email like '%@adipiscingenimmi.edu';""", connect)
+    query.printing_query("""SELECT concat(first_name ,' ', last_name), 
+        phone_number FROM applicants WHERE email LIKE '%@adipiscingenimmi.edu';""", connect)
 
 def update_jemima(connect):
     query.modification_query("""UPDATE applicants SET phone_number='003670/223-7459'
