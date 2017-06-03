@@ -1,6 +1,7 @@
 import psycopg2
 import query
 
+
 def display_mentors_name(connect):
     query.printing_query("""SELECT first_name, last_name FROM mentors;""", connect)
 
