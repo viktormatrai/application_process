@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Mentors and schools </title>
+        <link rel="stylesheet" type=text/css href="{{ url_for('static',filename='pagestyle.css') }}">
+    </head>
+
+    <body>
+        <table>
+            <tr>
+                <thead>
+                    <th> First name </th>
+                    <th> Last name </th>
+                    <th> School </th>
+                    <th> Country </th>
+                </thead>
+            </tr>
+        <tbody>
+            {% for item in rows %}
+            <tr>
+                <th> {{ item [1] }} </th>
+                <th> {{ item [2] }} </th>
+                <th> {{ item [3] }} </th>
+                <th> {{ item [4] }} </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="/" method="POST">
+        <input type="submit" value="Main menu">
+    </form>
+        </table>
+    </body>
+    
+</html>
