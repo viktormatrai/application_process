@@ -60,4 +60,4 @@ def applicants_and_mentors():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
