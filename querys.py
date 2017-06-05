@@ -2,7 +2,7 @@ import psycopg2
 import connect
 
 
-def show_mentors_name(connect):
+def mentors(connect):
     rows = connect.commands("""SELECT mentors.first_name, mentors.last_name, schools.name, schools.country
                                 FROM mentors
                                 LEFT JOIN schools
@@ -10,7 +10,7 @@ def show_mentors_name(connect):
     return rows
 
 
-def show_all_schools_name(connect):
+def all_school(connect):
     rows = connect.commands("""SELECT mentors.first_name, mentors.last_name, schools.name, schools.country
                                 FROM mentors
                                 RIGHT JOIN schools
@@ -18,7 +18,7 @@ def show_all_schools_name(connect):
     return rows
 
 
-def count_mentors_by_country(connect):
+def mentors_by_country(connect):
     rows = connect.commands("""SELECT country, COUNT(mentors) FROM mentors
                                 FULL JOIN schools
                                     ON mentors.city = schools.city
@@ -27,7 +27,7 @@ def count_mentors_by_country(connect):
     return rows
 
 
-def show_school_and_contact_person(conn):
+def contact(connect):
     rows = connect.commands("""SELECT name, CONCAT(first_name, ' ', last_name) FROM mentors
                                 INNER JOIN schools
                                     ON mentors.id = schools.contact_person
@@ -35,7 +35,7 @@ def show_school_and_contact_person(conn):
     return rows
 
 
-def show_applicants_datas(conn):
+def applicants(connect):
     rows = connect.commands("""SELECT applicants.first_name, applicants.application_code, applicants_mentors.creation_date
                                 FROM applicants
                                 INNER JOIN applicants_mentors
@@ -45,7 +45,7 @@ def show_applicants_datas(conn):
     return rows
 
 
-def show_applicants_and_mentors_datas(conn):
+def applicants_and_mentors(connect):
     rows = connect.commands("""SELECT applicants.first_name, applicants.application_code, CONCAT(mentors.first_name, ' ', mentors.last_name)
                                 FROM applicants
                                 FULL JOIN applicants_mentors

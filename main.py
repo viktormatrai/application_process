@@ -10,5 +10,53 @@ def main_page():
     return render_template('home_page.html')
 
 
+@app.route('/mentors', methods=['GET', 'POST'])
+def mentors():
+    connect = connect.commands()
+    rows = querys.mentors()
+    connect.close()
+    return render_template('mentors.html', rows=rows)
+
+
+@app.route('/all-school', methods=['GET', 'POST'])
+def all_shool():
+    connect = connect.commands()
+    rows = querys.all_school(connect)
+    conn.close()
+    return render_template('al_school.html', rows=rows)
+
+
+@app.route('/mentors-by-country', methods=['GET', 'POST'])
+def mentors_by_country():
+    connect = connect.commands()
+    rows = querys.mentors_by_country(connect)
+    connect.close()
+    return render_template('mentors_by_country.html', rows=rows)
+
+
+@app.route('/contacts', methods=['GET', 'POST'])
+def contacts():
+    connect = connect.commands()
+    rows = query.contacts(conn)
+    connect.close()
+    return render_template('contacts.html', rows=rows)
+
+
+@app.route('/applicants', methods=['GET', 'POST'])
+def applicants():
+    conn = connect.commands()
+    rows = querys.applicants(connect)
+    connect.close()
+    return render_template('applicants.html', rows=rows)
+
+
+@app.route('/applicants-and-mentors', methods=['GET', 'POST'])
+def applicants_and_mentors():
+    connect = connect.commands()
+    rows = query.applicants_and_mentors(conn)
+    conn.close()
+    return render_template("applicants_and_mentors.html", rows=rows)
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
