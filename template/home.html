@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Application Process </title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='pagestyle.css') }}">
+    </head>
+
+    <body>
+        <div class="styled-buttons">
+            <form action="/mentors" method="POST">
+                <input type="submit" value="Mentors">
+            </form>
+
+            <form action="/all-school" method="POST">
+                <input type="submit" value="Schools">
+            </form>
+
+            <form action="/mentors-by-country" method="POST">
+                <input type="submit" value="Mentors by country">
+            </form>
+
+            <form action="contacts" method="POST">
+                <input type="submit" value="Contacts">
+            </form>
+
+            <form action="applicants" method="POST">
+                <input type="submit" value="Applicants">
+            </form>
+
+            <form action="applicants-and-mentors" method="POST">
+                <input type="submit" value="Applicants and mentors">
+            </form>
+            </div>
+        </body>
+
+</html>
