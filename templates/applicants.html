@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Applicatns </title>
+        <link <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='pagestyle.css') }}">
+    </head>
+
+    <body>
+        <table>
+            <tr>
+                <th> Applicants' name </th>
+                <th> Applicants' code </th>
+                <th> Date of creation </th>
+            </tr>
+            <tbody>
+                <tr>
+                    <th> {{ item [0] }} </th>
+                    <th> {{ item [1] }} </th>
+                    <th> {{ item [2] }} </th>
+            </tbody>
+        </table>
+    </body>
+</html>
