@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title> Contacts </title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='pagestyle.css') }}" </head>
+    </head>
+
+    <body>
+        <table>
+                <tr>
+                    <th> School name </th>
+                    <th> Contact person </th>
+                </tr>
+            <tbody>
+                {% for item in rows %}
+                <tr>
+                    <th> {{ item [0] }} </th>
+                    <th> {{ item [1] }} </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form action="/" method="POST">
+            <input type="submit" value="Main menu">
+        </form>
+    </body>
+
+</html>
