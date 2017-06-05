@@ -1,1 +1,33 @@
 <!DOCTYPE html>
+
+<html>
+    <head>
+    <title> All school </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='pagestyle.css') }}" </head>
+    </head>
+
+    <body>
+        <table>
+                <tr>
+                    <th> Country </th>
+                    <th> School name </th>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                </tr>
+            <tbody>
+                {% for item in rows %}
+                <tr>
+                    <th> {{ item [4] }} </th>
+                    <th> {{ item [3] }} </th>
+                    <th> {{ item [1] }} </th>
+                    <th> {{ item [2] }} </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <form action="/" method="POST">
+            <input type="submit" value="Main menu">
+        </form>
+    </body>
+</html>
