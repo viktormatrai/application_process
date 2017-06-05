@@ -13,7 +13,7 @@ def main_page():
 
 @app.route('/mentors', methods=['GET', 'POST'])
 def mentors():
-    connect = connect.commands()
+    connect = connect.connect_db()
     rows = querys.mentors()
     connect.close()
     return render_template('mentors.html', rows=rows)
@@ -21,7 +21,7 @@ def mentors():
 
 @app.route('/all-school', methods=['GET', 'POST'])
 def all_shool():
-    connect = connect.commands()
+    connect = connect.connect_db()
     rows = querys.all_school(connect)
     conn.close()
     return render_template('al_school.html', rows=rows)
@@ -29,7 +29,7 @@ def all_shool():
 
 @app.route('/mentors-by-country', methods=['GET', 'POST'])
 def mentors_by_country():
-    connect = connect.commands()
+    connect = connect.connect_db()
     rows = querys.mentors_by_country(connect)
     connect.close()
     return render_template('mentors_by_country.html', rows=rows)
@@ -37,7 +37,7 @@ def mentors_by_country():
 
 @app.route('/contacts', methods=['GET', 'POST'])
 def contacts():
-    connect = connect.commands()
+    connect = connect.connect_db()
     rows = query.contacts(conn)
     connect.close()
     return render_template('contacts.html', rows=rows)
@@ -45,7 +45,7 @@ def contacts():
 
 @app.route('/applicants', methods=['GET', 'POST'])
 def applicants():
-    conn = connect.commands()
+    conn = connect.connect_db()
     rows = querys.applicants(connect)
     connect.close()
     return render_template('applicants.html', rows=rows)
@@ -53,7 +53,7 @@ def applicants():
 
 @app.route('/applicants-and-mentors', methods=['GET', 'POST'])
 def applicants_and_mentors():
-    connect = connect.commands()
+    connect = connect.connect_db()
     rows = query.applicants_and_mentors(conn)
     conn.close()
     return render_template("applicants_and_mentors.html", rows=rows)
