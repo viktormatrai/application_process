@@ -1,63 +1,85 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 import querys
-import connect
+from connect import open_database
 
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def main_page():
-    return render_template('home.html')
+@app.route('/', methods=["GET", "POST"])
+def diplsay_menu():
+    return render_template("home.html")
 
 
-@app.route('/mentors', methods=['GET', 'POST'])
+@app.route('/mentors', methods=["GET", "POST"])
 def mentors():
-    connect = connect.connect_db()
-    rows = querys.mentors()
-    connect.close()
-    return render_template('mentors.html', rows=rows)
+    cursor = open_database().cursor()
+    cursor.execute("""SELECT mentors.first_name, mentors.last_name, schools.name, schools.country
+                        FROM mentors 
+                        LEFT JOIN schools ON mentors.city = schools.city;""")
+    rows = cursor.fetchall()
+    return render_template("mentors.html", rows=rows)
 
 
-@app.route('/all-school', methods=['GET', 'POST'])
-def all_shool():
-    connect = connect.connect_db()
-    rows = querys.all_school(connect)
-    conn.close()
-    return render_template('al_school.html', rows=rows)
+@app.route('/all-school', methods=["GET", "POST"])
+def all_school():
+    cursor = open_database().cursor()
+    cursor.execute("""SELECT mentors.first_name, mentors.last_name, schools.name, schools.country
+                        FROM mentors
+                        RIGHT JOIN schools
+                            ON mentors.city = schools.city;""")
+    rows = cursor.fetchall()
+    return render_template("all_school.html", rows=rows)
 
 
-@app.route('/mentors-by-country', methods=['GET', 'POST'])
+@app.route('/mentors-by-country', methods=["GET", "POST"])
 def mentors_by_country():
-    connect = connect.connect_db()
-    rows = querys.mentors_by_country(connect)
-    connect.close()
-    return render_template('mentors_by_country.html', rows=rows)
+    cursor = open_database().cursor()
+    cursor.execute("""SELECT country, COUNT(mentors) FROM mentors
+                        FULL JOIN schools
+                            ON mentors.city = schools.city
+                        GROUP BY country
+                        ORDER BY country;""")
+    rows = cursor.fetchall()
+    return render_template("mentors_by_country.html", rows=rows)
 
 
-@app.route('/contacts', methods=['GET', 'POST'])
+@app.route('/contacts', methods=["GET", "POST"])
 def contacts():
-    connect = connect.connect_db()
-    rows = query.contacts(conn)
-    connect.close()
-    return render_template('contacts.html', rows=rows)
+    cursor = open_database().cursor()
+    cursor.execute("""SELECT name, CONCAT(first_name, ' ', last_name) FROM mentors
+                        INNER JOIN schools
+                            ON mentors.id = schools.contact_person
+                        ORDER BY name;""")
+    rows = cursor.fetchall()
+    return render_template("contacts.html", rows=rows)
 
 
-@app.route('/applicants', methods=['GET', 'POST'])
+@app.route('/applicants', methods=["GET", "POST"])
 def applicants():
-    conn = connect.connect_db()
-    rows = querys.applicants(connect)
-    connect.close()
-    return render_template('applicants.html', rows=rows)
+    cursor = open_database().cursor()
+    cursor.execute("""SELECT applicants.first_name, applicants.application_code, applicants_mentors.creation_date
+                        FROM applicants
+                        INNER JOIN applicants_mentors
+                            ON applicants.id = applicants_mentors.applicant_id
+                        WHERE applicants_mentors.creation_date > '2016/01/01'
+                        ORDER BY applicants_mentors.creation_date DESC;""")
+    rows = cursor.fetchall()
+    return render_template("applicants.html", rows=rows)
 
 
 @app.route('/applicants-and-mentors', methods=['GET', 'POST'])
-def applicants_and_mentors():
-    connect = connect.connect_db()
-    rows = query.applicants_and_mentors(conn)
-    conn.close()
-    return render_template("applicants_and_mentors.html", rows=rows)
+def applicants_mentors():
+    cursor = open_database().cursor()
+    cursor.execute("""SELECT applicants.first_name, applicants.application_code, CONCAT(mentors.first_name, ' ', mentors.last_name)
+                        FROM applicants
+                        FULL JOIN applicants_mentors
+                            ON applicants.id = applicants_mentors.applicant_id
+                        LEFT JOIN mentors
+                            ON applicants_mentors.mentor_id = mentors.id;""")
+    rows = cursor.fetchall()
+    return render_template('applicants_and_mentors.html', rows=rows)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run()

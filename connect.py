@@ -1,7 +1,7 @@
 import psycopg2
 
 
-def connect_db():
-    connect = psycopg2.connect("dbname='matraiv' user='matraiv' host='localhost' password='06pv24'")
-    connect.autocommit = True
-    return connect
+def open_database():
+    connect_data = psycopg2.connect("dbname='matraiv' user='matraiv' host='localhost' password='06pv24'")
+    connect_data.autocommit = True
+    return connect_data
